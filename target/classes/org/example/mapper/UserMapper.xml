@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+     namespace:名称空间
+-->
+<mapper namespace="org.example.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="org.example.pojo.User">
+        <result column="post_article" property="postArticle"/>
+        <result column="review_article" property="reviewArticle"/>
+        <result column="published_issues" property="publishedIssues"/>
+        <result column="comment_response" property="commentResponse"/>
+    </resultMap>
+
+
+
+    <select id="selectAll" resultMap="userResultMap">
+        select id,post_article,published_issues,review_article,comment_response
+        from user;
+
+    </select>
+
+
+    <!--动态条件查询-->
+    <select id="selectByCondition" resultMap="userResultMap">
+        select id,post_article,published_issues,review_article,comment_response
+        from user
+
+        <where>
+
+            <if test="postArticle!=null and postArticle!=''">
+                post_article like #{postArticle}
+            </if>
+
+        </where>
+
+    </select>
+
+    <!--<select id="selectAll" resultType="org.example.pojo.User">
+        select id,post_article,published_issues  ,review_article,comment_response
+        from user;
+
+    </select>-->
+
+
+
+</mapper>
